@@ -1,0 +1,18 @@
+自动化框架
+
+1、用例管理  - 编写用例/收集/执行/生成测试报告   -PO模式+pytest
+              测试数据管理
+2、日志输出  - logging
+3、工具包    - 日志
+4、失败截图/截屏
+5、入口文件
+
+
+分层管理
+output  -   log/report/screenshot   分别存放日志/报告/失败截图
+PageLocators    -   页面元素
+PageObjects     -   页面对象
+TestCases       -   测试用例
+TestDatas       -   测试数据
+Common          -   全局工具配置
+main.py         -   入口文件
