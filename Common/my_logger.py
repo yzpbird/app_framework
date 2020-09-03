@@ -8,6 +8,9 @@ info()  error()  debug() warning()  exception() critical()
 """
 import logging
 from logging import handlers
+import os
+from Common.handle_path import logs_dir
+
 
 class MyLogger(logging.Logger):
 
@@ -31,10 +34,12 @@ class MyLogger(logging.Logger):
             # 将文件渠道都添加到 日志收集器当中。
             self.addHandler(handle2)
 
+print(os.path.join(logs_dir, "apptest.log"))
+logger = MyLogger("app_framework",file=os.path.join(logs_dir, "apptest.log"))
 
-logger = MyLogger("app_framework",file="apptest.log")
 
-
+if __name__ == '__main__':
+    logger.info('66666')
 
 # m = MyLogger("java17","INFO",r'D:\Pychram-Workspace\java17\class_logging\java17-22.log')
 # m.warning("111111111111111111")

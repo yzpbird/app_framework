@@ -23,7 +23,10 @@ from appium.webdriver.webdriver import WebDriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from Common.my_logger import logger
+from Common.handle_path import screenshots_dir
 import time
+import os
+
 
 
 class BasePage:
@@ -173,10 +176,35 @@ class BasePage:
         """
         # 处理好截图命名： 页面名称_功能名称_截图时间
         now = time.strftime("%Y-$m-%d %H_%M_%S")
-        filepath = "{}_{}.png".format(img_desc, now)
+        filepath = os.path.join(screenshots_dir, "{}_{}.png".format(img_desc, now))
         # 截图操作
         self.driver.save_screenshot(filepath)
         logger.info("截取当前页面，截图路径为: {}".format(filepath))
+
+    def get_device_size(self):
+        """
+        获取设备的大小
+        @return:
+        """
+        return self.driver.get_window_size()
+
+    def swipe_by_direction(self, direct, duration=200):
+        """
+        上下左右滑动
+        @param direct:
+        """
+        size = self.get_device_size()
+        if direct.upper() == "UP":
+            self.driver.swipe(size["width"]*0.5, size["height"]*0.9, size["width"]*0.5, size["height"]*0.1, duration)
+        elif direct.upper() == "DOWN":
+            self.driver.swipe(size["width"] * 0.5, size["height"] * 0.1, size["width"] * 0.5, size["height"] * 0.9,
+                              duration)
+        elif direct.upper() == "LEFT":
+            self.driver.swipe(size["width"] * 0.9, size["height"] * 0.5, size["width"] * 0.1, size["height"] * 0.5,
+                              duration)
+        elif direct.upper() == "RIGHT":
+            self.driver.swipe(size["width"] * 0.1, size["height"] * 0.5, size["width"] * 0.9, size["height"] * 0.5,
+                              duration)
 
 
 if __name__ == '__main__':
